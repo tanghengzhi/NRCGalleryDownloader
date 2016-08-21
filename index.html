@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>NRC Gallery Downloader</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body class="container">
+    <h3>NRC Gallery Downloader</h3>
+    <p>Powered by <a href="https://tanghengzhi.com">tanghengzhi.com</a></p>
+    <hr>
+
+    <form action="NRCGalleryDownloader.php" class="form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2">输入活动代码</label>
+            <input type="text" class="form-control" id="id" name="id" placeholder="" required>
+        </div>
+        <button type="submit" class="btn btn-default">获取下载链接</button>
+    </form>
+
+    <hr>
+    <div id="imageList"></div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+        $("form").submit(function(){
+            var id = $('#id').val();
+            $.ajax({
+                url: "NRCGalleryDownloader.php",
+                data: {id: id},
+                success: function(data) {
+                    var successMessage = '<div class="alert alert-success" role="alert">获取下载链接成功！请复制如下图片链接到迅雷（旋风）中批量下载！</div>';
+                    $('#imageList').html(successMessage + data);
+                },
+                error: function(data) {
+                    var errorMessage = '<div class="alert alert-danger" role="alert">获取下载链接失败！请检查你输入的活动代码是否正确，然后再重新尝试！</div>';
+                    $('#imageList').html(errorMessage);
+                }
+            })
+            return false;
+        });
+    </script>
+  </body>
+</html>
