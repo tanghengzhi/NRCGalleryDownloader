@@ -15,7 +15,7 @@ class NRCGalleryDownloader {
         if ($result = @file_get_contents($url)) {
             $result = json_decode($result);
 
-            $this->title = date("Y-m-d H:i", $result->when / 1000 + 8*60*60) . ' ' . $result->typeText;
+            $this->title = date("Y-m-d H：i", $result->when / 1000) . ' ' . $result->typeText;
             $this->photos = $result->photos;
 
             echo '<pre><p>' . $this->title . '</p></pre>';
